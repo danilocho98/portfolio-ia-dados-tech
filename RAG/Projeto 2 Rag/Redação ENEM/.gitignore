@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+chroma_redacao_clara_local/
+.gradio/
+.venv/
+venv/
+*.log

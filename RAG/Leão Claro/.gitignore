@@ -1,0 +1,10 @@
+.env
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+
+# Opcional: nao subir o banco vetorial se quiser que ele seja criado no ambiente.
+# Para uma demo mais rapida no Hugging Face, voce pode comentar a linha abaixo
+# e versionar a pasta Chroma ja gerada.
+chroma_leao_claro_irpf_gemini/
+chroma_leao_claro_irpf_local/

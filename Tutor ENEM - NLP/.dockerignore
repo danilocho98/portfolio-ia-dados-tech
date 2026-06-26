@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+env/
+.vscode/
+.git/
+.gitignore
+*.ipynb
+enem-scraping-teste.py
+enem-similares-teste.py
+enem-tutor-teste.py
+webscrappingcuritiba.py
+#racas de cachorros.py
+MAP3121 - Metodos Numericos/
+PMT3533 - Termohidraulica/
+PQI3203 - Hidraulica/
+Automacao - Apps Script/
+SVM - Machine Learning/

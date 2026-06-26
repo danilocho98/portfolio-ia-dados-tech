@@ -1,0 +1,231 @@
+---
+title: "Análise Estatística do Índice Big Mac"
+author: "Danilo Cho"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Introdução
+
+O **Índice Big Mac** foi criado pela revista *The Economist* em 1986 como uma ferramenta ilustrativa da teoria da **Paridade do Poder de Compra (PPC)**. A premissa é de que, no longo prazo, as taxas de câmbio entre duas moedas devem se ajustar para igualar o preço de uma cesta idêntica de bens e serviços — neste caso, o Big Mac.
+
+Este estudo realiza o tratamento de uma base de dados histórica contendo os preços locais e em dólares do Big Mac em diversos países, realizando cálculos estatísticos de médias móveis, variância de preços e comparações entre continentes e hemisférios.
+
+---
+
+## Carregamento e Exploração dos Dados
+
+Primeiramente, carregamos o arquivo contendo os dados históricos de preços.
+
+```{r load_data}
+# Carrega a base de dados
+D <- read.csv("epData.csv")
+
+# Exibe a estrutura inicial do DataFrame
+str(D)
+```
+
+---
+
+## Funções de Tratamento e Cálculo
+
+Desenvolvemos funções personalizadas para manipulação de vetores, extração temporais e cálculos de métricas de dispersão e tendência central sobre os preços locais.
+
+### 1. Extração do Ano
+Função para processar a coluna de data (texto) e retornar um vetor contendo apenas o ano correspondente a cada registro.
+
+```{r func_ano}
+criaVetorAno <- function(df) {
+  vetorAno <- c()
+  for(i in 1:nrow(df)){
+    dataSeparada <- strsplit(as.character(df$date[i]), "-")
+    vetorData <- unlist(dataSeparada)
+    vetorAno <- c(vetorAno, as.integer(vetorData[1]))
+  }
+  return(vetorAno)
+}
+
+# Exemplo de teste com os primeiros registros
+head(criaVetorAno(D))
+```
+
+### 2. Preço Histórico nos EUA
+Função que retorna o preço local do Big Mac nos EUA para um determinado ano.
+
+```{r func_us_price}
+BigMacUSPrice <- function(df, ano) {
+  filtro <- df$isoA3 == "USA" & as.integer(substr(df$date, 1, 4)) == ano
+  dadosFiltrados <- df[filtro, ]
+  return(dadosFiltrados$localPrice[1])
+}
+
+# Preço do Big Mac nos EUA em 2022
+BigMacUSPrice(D, 2022)
+```
+
+### 3. Média de Preço por País
+Função iterativa para obter a média de preço de uma determinada coluna (representada pelo índice da coluna) para um determinado país.
+
+```{r func_media}
+mediaColunaPais <- function(df, indexColuna, pais) {
+  dadosFiltrados <- df[df$isoA3 == pais, ]
+  soma <- 0
+  contador <- 0
+  for (i in 1:nrow(dadosFiltrados)) {
+    soma <- soma + dadosFiltrados[i, indexColuna]
+    contador <- contador + 1
+  }
+  media <- soma / contador
+  return(media)
+}
+
+# Média da coluna 5 (localPrice) para o Brasil (BRA)
+mediaColunaPais(D, 5, "BRA")
+```
+
+### 4. Variância de Preço por País
+Função iterativa para o cálculo da variância de uma determinada coluna para um país específico.
+
+```{r func_variancia}
+varColunaPais <- function(df, indexColuna, pais) {
+  dadosFiltrados <- df[df$isoA3 == pais, ]
+  soma <- 0
+  somaQuadrados <- 0
+  contador <- 0
+  for (i in 1:nrow(dadosFiltrados)) {
+    valor <- as.numeric(dadosFiltrados[i, indexColuna])
+    soma <- soma + valor
+    somaQuadrados <- somaQuadrados + valor^2
+    contador <- contador + 1
+  }
+  media <- soma / contador
+  variancia <- (somaQuadrados - contador * media^2) / (contador - 1)
+  return(variancia)
+}
+
+# Variância do preço local (coluna 5) no Brasil (BRA)
+varColunaPais(D, 5, "BRA")
+```
+
+### 5. Criação do Vetor de Índice Big Mac (BMI)
+Função para calcular o índice Big Mac geral ($Pre\c{c}o Local / Pre\c{c}o EUA$) de cada linha correspondente ao mesmo ano.
+
+```{r func_bmi}
+criaVetorBMI <- function(df) {
+  BMI <- numeric(nrow(df))
+  Ano <- as.integer(substr(df$date, 1, 4))
+  
+  precosBigMacUS <- unique(df[df$isoA3 == "USA", c("localPrice", "date")])
+  precosBigMacUS$Ano <- as.integer(substr(precosBigMacUS$date, 1, 4))
+  
+  for (i in 1:nrow(df)) {
+    precoBigMacUS <- precosBigMacUS$localPrice[precosBigMacUS$Ano == Ano[i]]
+    if (!is.na(precoBigMacUS) && precoBigMacUS != 0) {
+      BMI[i] <- df$localPrice[i] / precoBigMacUS
+    } else {
+      BMI[i] <- NA
+    }
+  }
+  return(BMI)
+}
+
+# Vetor com o cálculo do BMI para os primeiros registros
+head(criaVetorBMI(D))
+```
+
+---
+
+## Estruturação e Fusão dos Dados
+
+Adicionamos as colunas calculadas ao nosso DataFrame principal.
+
+```{r transform}
+vetorAno <- criaVetorAno(D)
+D <- cbind(D, Ano = vetorAno)
+
+vetorBMI <- criaVetorBMI(D)
+D <- cbind(D, BMI = vetorBMI)
+
+# Exibe as primeiras linhas com as novas colunas
+head(D[, c("date", "isoA3", "localPrice", "Ano", "BMI")])
+```
+
+---
+
+## Análise por Região (Continentes e Hemisférios)
+
+Agrupamos os países de acordo com suas respectivas localizações geográficas para avaliar diferenças macroeconômicas.
+
+```{r regions}
+# Mapeamento Geográfico
+Africa <- c("ZAF", "EGY")
+Asia <- c("ARE", "AZE", "BHR", "CHN", "HKG", "IND", "IDN", "ISR", "JOR", "JPN", "KOR", "KWT", "LBN", "MDA", "MYS", "OMN", "PAK", "PHL", "QAT", "SAU", "SGP", "THA", "TUR", "TWN", "VNM")
+Europe <- c("AUT", "BEL", "CHE", "CZE", "DEU", "DNK", "ESP", "EST", "FIN", "FRA", "GBR", "GRC", "HRV", "HUN", "IRL", "ITA", "LTU", "LVA", "NLD", "NOR", "POL", "PRT", "ROU", "RUS", "SVK", "SVN", "SWE", "UKR")
+Americas <- c("ARG", "BRA", "CAN", "CHL", "COL", "CRI", "GTM", "HND", "MEX", "NIC", "PER", "USA", "URY")
+Oceania <- c("AUS", "NZL")
+
+HemisferioNorte <- c("ARE", "AUT", "AZE", "BEL", "BHR", "CAN", "CHE", "CHN", "CRI", "CZE", "DEU", "DNK", "EGY", "ESP", "EST", "FIN", "FRA", "GBR", "GRC", "GTM", "HKG", "HND", "HRV", "HUN", "IDN", "IND", "IRL", "ISR", "ITA", "JOR", "JPN", "KOR", "KWT", "LBN", "LTU", "LVA", "MDA", "MEX", "MYS", "NIC", "NLD", "NOR", "OMN", "PAK", "PHL", "POL", "PRT", "QAT", "ROU", "RUS", "SAU", "SGP", "SVK", "SVN", "SWE", "THA", "TUR", "TWN", "UKR", "USA", "VNM")
+HemisferioSul <- c("ARG", "AUS", "BRA", "CHL", "COL", "IDN", "IND", "NZL", "PER", "URY", "ZAF")
+```
+
+### 1. Índice Big Mac Médio por Continente
+
+```{r plot_continent}
+media_BigMac_continente <- lapply(list(Africa, Asia, Europe, Americas, Oceania), function(x) mean(D$BMI[D$isoA3 %in% x], na.rm = TRUE))
+
+barplot(unlist(media_BigMac_continente), 
+        names.arg=c("África", "Ásia", "Europa", "Américas", "Oceania"), 
+        col=c("#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"),
+        xlab="Continentes", ylab="Índice Big Mac Médio", 
+        main="Índice Big Mac Médio por Continente")
+```
+
+### 2. Índice Big Mac Médio por Hemisfério
+
+```{r plot_hemisphere}
+media_BigMac_hemisferio <- lapply(list(HemisferioNorte, HemisferioSul), function(x) mean(D$BMI[D$isoA3 %in% x], na.rm = TRUE))
+
+barplot(unlist(media_BigMac_hemisferio), 
+        names.arg=c("Hemisfério Norte", "Hemisfério Sul"), 
+        col=c("#1e3a8a", "#0d9488"),
+        xlab="Hemisférios", ylab="Índice Big Mac Médio", 
+        main="Índice Big Mac Médio por Hemisfério")
+```
+
+---
+
+## Dispersão e Variância dos Preços
+
+Análise da variabilidade do índice de preços em cada país ao longo do tempo.
+
+```{r plot_variance}
+D$indice_big_mac <- vetorBMI
+dados_agrupados <- split(D, D$isoA3)
+variancias <- sapply(dados_agrupados, function(df) var(df$indice_big_mac, na.rm = TRUE))
+
+# Filtro para exibir a variância de alguns países selecionados para melhor visualização
+variancias_selecionadas <- variancias[c("BRA", "USA", "ARG", "CHN", "FRA", "GBR", "JPN", "CAN")]
+
+barplot(variancias_selecionadas, 
+        col="#64748b",
+        xlab="Países Selecionados", 
+        ylab="Variância do Índice Big Mac", 
+        main="Variância Histórica do Índice Big Mac (Países Selecionados)")
+```
+
+---
+
+## Conclusões
+
+A análise estatística do Índice Big Mac demonstra a esparsidade do poder de compra global:
+1. **Diferenças Regionais:** A Europa e a Oceania historicamente mantêm índices médios mais elevados de custo relativo de alimentação em comparação com a Ásia e África.
+2. **Volatilidade Cambial:** Países de economia emergente ou em cenários de alta inflação (como Argentina) exibem maior variância histórica no índice, refletindo a desvalorização cambial frequente frente ao Dólar.

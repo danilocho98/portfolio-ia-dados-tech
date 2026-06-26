@@ -1,0 +1,11 @@
+gradio==5.49.1
+langchain
+langchain-community
+langchain-text-splitters
+langchain-groq
+langchain-huggingface
+langchain-chroma
+chromadb
+pypdf
+python-dotenv
+sentence-transformers

@@ -1,0 +1,217 @@
+{
+  "feudalismo": {
+    "titulo": "Feudalismo: o que é, características, resumo e declínio",
+    "link": "https://brasilescola.uol.com.br/historiag/feudalismo.htm",
+    "area": "ciências humanas"
+  },
+  "suserania e vassalagem": {
+    "titulo": "Relações de Vassalagem e Suserania na Idade Média",
+    "link": "https://brasilescola.uol.com.br/historiag/vassalagem-suserania.htm",
+    "area": "ciências humanas"
+  },
+  "revolucao industrial": {
+    "titulo": "Revolução Industrial: resumo, fases, causas e consequências",
+    "link": "https://brasilescola.uol.com.br/historiag/revolucao-industrial.htm",
+    "area": "ciências humanas"
+  },
+  "corrente eletrica": {
+    "titulo": "Corrente Elétrica: o que é, fórmulas, tipos e efeitos",
+    "link": "https://brasilescola.uol.com.br/fisica/corrente-eletrica.htm",
+    "area": "ciências da natureza"
+  },
+  "leis de newton": {
+    "titulo": "Leis de Newton: inércia, dinâmica e ação/reação",
+    "link": "https://brasilescola.uol.com.br/fisica/leis-newton.htm",
+    "area": "ciências da natureza"
+  },
+  "termodinamica": {
+    "titulo": "Termodinâmica: leis da termodinâmica e gases",
+    "link": "https://brasilescola.uol.com.br/fisica/termodinamica.htm",
+    "area": "ciências da natureza"
+  },
+  "funcao de primeiro grau": {
+    "titulo": "Função de Primeiro Grau (Função Afim): gráficos e fórmulas",
+    "link": "https://brasilescola.uol.com.br/matematica/funcao-1-grau.htm",
+    "area": "matemática"
+  },
+  "probabilidade": {
+    "titulo": "Probabilidade: conceitos básicos, fórmulas e exercícios",
+    "link": "https://brasilescola.uol.com.br/matematica/probabilidade.htm",
+    "area": "matemática"
+  },
+  "estatistica media e mediana": {
+    "titulo": "Média, Mediana e Moda: medidas de tendência central",
+    "link": "https://brasilescola.uol.com.br/matematica/media-moda-mediana.htm",
+    "area": "matemática"
+  },
+  "variacao linguistica": {
+    "titulo": "Variação Linguística: tipos, exemplos e preconceito",
+    "link": "https://brasilescola.uol.com.br/gramatica/variacoes-linguisticas.htm",
+    "area": "linguagens, códigos"
+  },
+  "sintaxe": {
+    "titulo": "Sintaxe: termos da oração, sujeito, predicado e análise",
+    "link": "https://brasilescola.uol.com.br/gramatica/sintaxe.htm",
+    "area": "linguagens, códigos"
+  },
+  "revolucao francesa": {
+    "titulo": "Revolução Francesa: resumo, causas, fases e consequências",
+    "link": "https://brasilescola.uol.com.br/historiag/revolucao-francesa.htm",
+    "area": "ciências humanas"
+  },
+  "era vargas": {
+    "titulo": "Era Vargas: resumo, fases e principais características",
+    "link": "https://brasilescola.uol.com.br/historiab/era-vargas.htm",
+    "area": "ciências humanas"
+  },
+  "ditadura militar": {
+    "titulo": "Ditadura Militar no Brasil: resumo, presidentes e censura",
+    "link": "https://brasilescola.uol.com.br/historiab/ditadura-militar.htm",
+    "area": "ciências humanas"
+  },
+  "urbanizacao": {
+    "titulo": "Urbanização: o que é, causas, processo e consequências",
+    "link": "https://brasilescola.uol.com.br/geografia/urbanizacao.htm",
+    "area": "ciências humanas"
+  },
+  "globalizacao": {
+    "titulo": "Globalização: o que é, fases, características e impactos",
+    "link": "https://brasilescola.uol.com.br/geografia/globalizacao.htm",
+    "area": "ciências humanas"
+  },
+  "geometria espacial": {
+    "titulo": "Geometria Espacial: conceitos, sólidos geométricos e fórmulas",
+    "link": "https://brasilescola.uol.com.br/matematica/geometria-espacial.htm",
+    "area": "matemática"
+  },
+  "volume de cilindro": {
+    "titulo": "Volume do Cilindro: como calcular, fórmulas e exercícios",
+    "link": "https://brasilescola.uol.com.br/matematica/volume-cilindro.htm",
+    "area": "matemática"
+  },
+  "geometria plana": {
+    "titulo": "Geometria Plana: conceitos básicos, figuras e fórmulas",
+    "link": "https://brasilescola.uol.com.br/matematica/geometria-plana.htm",
+    "area": "matemática"
+  },
+  "porcentagem": {
+    "titulo": "Porcentagem: o que é, como calcular, fórmulas e exemplos",
+    "link": "https://brasilescola.uol.com.br/matematica/porcentagem.htm",
+    "area": "matemática"
+  },
+  "funcao de segundo grau": {
+    "titulo": "Função de Segundo Grau (Função Quadrática): fórmulas e gráficos",
+    "link": "https://brasilescola.uol.com.br/matematica/funcao-2-grau.htm",
+    "area": "matemática"
+  },
+  "leis de ohm": {
+    "titulo": "Leis de Ohm: fórmulas, enunciado, resistência e resistividade",
+    "link": "https://brasilescola.uol.com.br/fisica/leis-ohm.htm",
+    "area": "ciências da natureza"
+  },
+  "estequiometria": {
+    "titulo": "Cálculo Estequiométrico: o que é, leis ponderais e exercícios",
+    "link": "https://brasilescola.uol.com.br/quimica/estequiometria.htm",
+    "area": "ciências da natureza"
+  },
+  "tabela periodica": {
+    "titulo": "Tabela Periódica: famílias, períodos, elementos e propriedades",
+    "link": "https://brasilescola.uol.com.br/quimica/tabela-periodica.htm",
+    "area": "ciências da natureza"
+  },
+  "eletroquimica": {
+    "titulo": "Eletroquímica: pilhas, eletrólise, oxirredução e corrosão",
+    "link": "https://brasilescola.uol.com.br/quimica/eletroquimica.htm",
+    "area": "ciências da natureza"
+  },
+  "cadeia alimentar": {
+    "titulo": "Cadeia Alimentar: produtores, consumidores e decompositores",
+    "link": "https://brasilescola.uol.com.br/biologia/cadeia-alimentar.htm",
+    "area": "ciências da natureza"
+  },
+  "leis de mendel": {
+    "titulo": "Leis de Mendel: primeira lei, segunda lei e genética molecular",
+    "link": "https://brasilescola.uol.com.br/biologia/leis-mendel.htm",
+    "area": "ciências da natureza"
+  },
+  "ecologia": {
+    "titulo": "Ecologia: conceitos básicos, ecossistemas e biosfera",
+    "link": "https://brasilescola.uol.com.br/biologia/ecologia.htm",
+    "area": "ciências da natureza"
+  },
+  "fotossintese": {
+    "titulo": "Fotossíntese: o que é, etapas, importância e clorofila",
+    "link": "https://brasilescola.uol.com.br/biologia/fotossintese.htm",
+    "area": "ciências da natureza"
+  },
+  "modernismo": {
+    "titulo": "Modernismo no Brasil: fases, características e Semana de 22",
+    "link": "https://brasilescola.uol.com.br/literatura/modernismo.htm",
+    "area": "linguagens, códigos"
+  },
+  "romantismo": {
+    "titulo": "Romantismo no Brasil: fases da poesia, prosa e características",
+    "link": "https://brasilescola.uol.com.br/literatura/romantismo.htm",
+    "area": "linguagens, códigos"
+  },
+  "iluminismo": {
+    "titulo": "Iluminismo: o que foi, filósofos, ideias e consequências",
+    "link": "https://brasilescola.uol.com.br/historiag/iluminismo.htm",
+    "area": "ciências humanas"
+  },
+  "segunda guerra mundial": {
+    "titulo": "Segunda Guerra Mundial: resumo, causas, fases e holocausto",
+    "link": "https://brasilescola.uol.com.br/historiag/segunda-guerra.htm",
+    "area": "ciências humanas"
+  },
+  "guerra fria": {
+    "titulo": "Guerra Fria: resumo, causas, blocos e queda do muro de Berlim",
+    "link": "https://brasilescola.uol.com.br/historiag/guerra-fria.htm",
+    "area": "ciências humanas"
+  },
+  "ondulatoria": {
+    "titulo": "Ondulatória: o que estuda, tipos de ondas e fenômenos",
+    "link": "https://brasilescola.uol.com.br/fisica/ondulatoria.htm",
+    "area": "ciências da natureza"
+  },
+  "radioatividade": {
+    "titulo": "Radioatividade: tipos de radiação, leis e decaimento",
+    "link": "https://brasilescola.uol.com.br/quimica/radioatividade.htm",
+    "area": "ciências da natureza"
+  },
+  "modelos atomicos": {
+    "titulo": "Modelos Atômicos: Dalton, Thomson, Rutherford e Bohr",
+    "link": "https://brasilescola.uol.com.br/quimica/modelos-atomicos.htm",
+    "area": "ciências da natureza"
+  },
+  "figuras de linguagem": {
+    "titulo": "Figuras de Linguagem: metáfora, antítese, ironia e exemplos",
+    "link": "https://brasilescola.uol.com.br/portugues/figuras-linguagem.htm",
+    "area": "linguagens, códigos"
+  },
+  "generos textuais": {
+    "titulo": "Gêneros Textuais: narrativo, descritivo, injuntivo e exemplos",
+    "link": "https://brasilescola.uol.com.br/redacao/generos-textuais.htm",
+    "area": "linguagens, códigos"
+  },
+  "concordancia verbal": {
+    "titulo": "Concordância Verbal: regras básicas, sujeito composto e casos",
+    "link": "https://brasilescola.uol.com.br/gramatica/concordancia-verbal.htm",
+    "area": "linguagens, códigos"
+  },
+  "renascimento": {
+    "titulo": "Renascimento: o que foi, características, fases e arte",
+    "link": "https://brasilescola.uol.com.br/historiag/renascimento.htm",
+    "area": "ciências humanas"
+  },
+  "cartografia": {
+    "titulo": "Cartografia: o que estuda, história, projeções e mapas",
+    "link": "https://brasilescola.uol.com.br/geografia/cartografia.htm",
+    "area": "ciências humanas"
+  },
+  "cinematica": {
+    "titulo": "Cinemática: movimento uniforme, variado e queda livre",
+    "link": "https://brasilescola.uol.com.br/fisica/cinematica.htm",
+    "area": "ciências da natureza"
+  }
+}

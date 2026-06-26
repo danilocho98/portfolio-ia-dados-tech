@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor ENEM — Portfólio de IA & Processamento de Linguagem Natural</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Estilos -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <div class="glass-bg"></div>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header id="main-header">
+            <div class="header-logo">
+                <span class="logo-icon">🎓</span>
+                <h1>ENEM <span class="accent-text">AI Tutor</span></h1>
+            </div>
+            <p class="subtitle">Classificação Inteligente de Conteúdos e Recomendador de Estudos Baseado em PLN</p>
+            <div class="header-links">
+                <a href="https://github.com" target="_blank" class="badge-link">GitHub</a>
+                <a href="https://huggingface.co/spaces/dcho98/racasdogs" target="_blank" class="badge-link accent-badge">Hugging Face Space</a>
+            </div>
+        </header>
+
+        <!-- NAVIGATION TABS -->
+        <nav class="nav-tabs" aria-label="Navegação do Portfólio">
+            <button class="tab-btn active" data-tab="tutor" id="tab-tutor-btn">Tutor Interativo</button>
+            <button class="tab-btn" data-tab="case" id="tab-case-btn">Estudo de Caso &amp; Métricas</button>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main>
+            
+            <!-- TAB: TUTOR INTERATIVO -->
+            <section id="tab-tutor" class="tab-content active">
+                <div class="glass-card tutor-card">
+                    <h2>Faça a sua pergunta ou insira um enunciado:</h2>
+                    <p class="card-desc">Digite o tema ou cole uma questão do vestibular. O modelo irá classificar a área temática e sugerir materiais de estudo e questões similares.</p>
+                    
+                    <form id="tutor-form">
+                        <textarea id="query-input" placeholder="Ex: Qual a fórmula de cálculo da corrente elétrica em resistores em paralelo? ou Cole o enunciado de uma questão..." required></textarea>
+                        <button type="submit" id="submit-btn">
+                            <span class="btn-text">Analisar Dúvida</span>
+                            <span class="spinner hidden"></span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Painel de Resultados (Hidden por padrão, animado via JS) -->
+                <div id="results-panel" class="hidden">
+                    <div class="results-grid">
+                        
+                        <!-- Coluna 1: Classificação e Matéria -->
+                        <div class="result-column">
+                            <div class="glass-card predicted-area-card">
+                                <h3>Área Temática Predita</h3>
+                                <div id="predicted-area-badge" class="badge">Aguardando...</div>
+                            </div>
+
+                            <div id="materials-card" class="glass-card study-material-card">
+                                <h3>📚 Material de Estudo Recomendado</h3>
+                                <div id="material-content">
+                                    <!-- Dinâmico -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Coluna 2: Questões Similares -->
+                        <div class="result-column">
+                            <div class="glass-card similar-questions-card">
+                                <h3>📝 Questões Similares do ENEM</h3>
+                                <p class="card-desc">Expandir cartões para ver o enunciado correspondente:</p>
+                                <div id="questions-list">
+                                    <!-- Dinâmico -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: ESTUDO DE CASO -->
+            <section id="tab-case" class="tab-content">
+                
+                <!-- O Dataset -->
+                <div class="glass-card case-section">
+                    <div class="section-badge">Fase 1</div>
+                    <h2>O Dataset e Dados de Treino</h2>
+                    <p>O modelo foi treinado a partir de um banco de dados contendo questões históricas do Exame Nacional do Ensino Médio (ENEM). A qualidade do modelo preditivo depende diretamente do tratamento e balanceamento dos dados de entrada.</p>
+                    
+                    <div class="dataset-stats">
+                        <div class="stat-box">
+                            <span class="stat-num">4.021</span>
+                            <span class="stat-label">Questões Originais</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-num">3.843</span>
+                            <span class="stat-label">Questões Limpas</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-num">4</span>
+                            <span class="stat-label">Áreas Temáticas</span>
+                        </div>
+                    </div>
+
+                    <h3>Distribuição das Classes (Questões por Área)</h3>
+                    <p>Para garantir que o modelo não desenvolvesse nenhum viés de classificação, o dataset foi filtrado eliminando linhas com valores nulos ou indeterminados. A distribuição de dados de treino final ficou perfeitamente equilibrada:</p>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Grande Área do ENEM</th>
+                                    <th>Quantidade de Questões</th>
+                                    <th>Porcentagem (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="dot nature"></span> Ciências da Natureza</td>
+                                    <td>1.017</td>
+                                    <td>26.5%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="dot humans"></span> Ciências Humanas</td>
+                                    <td>957</td>
+                                    <td>24.9%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="dot languages"></span> Linguagens e Códigos</td>
+                                    <td>947</td>
+                                    <td>24.6%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="dot math"></span> Matemática</td>
+                                    <td>922</td>
+                                    <td>24.0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pipeline de PLN -->
+                <div class="glass-card case-section">
+                    <div class="section-badge">Fase 2</div>
+                    <h2>A Hierarquia do Pipeline de Processamento de Linguagem Natural (PLN)</h2>
+                    <p>Antes de classificar uma dúvida ou enunciado, o texto passa por uma hierarquia de processamento dividida em três camadas sequenciais:</p>
+                    
+                    <div class="pipeline-flow">
+                        <!-- Camada 1 -->
+                        <div class="pipeline-step">
+                            <h4>Camada 1: Pré-processamento &amp; Limpeza</h4>
+                            <p>O texto contínuo é transformado para reduzir ruído:</p>
+                            <ul>
+                                <li><strong>Normalização:</strong> Conversão de todas as palavras para minúsculas e remoção de caracteres especiais ou pontuações (impedindo que "Idade" e "idade" sejam tratadas como termos distintos).</li>
+                                <li><strong>Tokenização:</strong> Quebra da string em tokens individuais (palavras separadas).</li>
+                                <li><strong>Remoção de Stopwords:</strong> Eliminação de palavras vazias de significado (como "o", "a", "de", "que") usando a biblioteca <code>NLTK</code>.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Camada 2 -->
+                        <div class="pipeline-step">
+                            <h4>Camada 2: Vetorização &amp; Engenharia de Atributos</h4>
+                            <p>Conversão do texto filtrado em dados numéricos vetoriais:</p>
+                            <ul>
+                                <li><strong>TF-IDF (Term Frequency - Inverse Document Frequency):</strong> Um termo que aparece muito em um único documento, mas muito pouco no restante do corpus, é considerado muito importante (alto TF-IDF). Termos genéricos que aparecem em quase todos os documentos recebem penalização (baixo IDF).</li>
+                                <li><strong>N-Grams (Bigramas - <code>ngram_range=(1,2)</code>):</strong> O modelo vetoriza tanto termos de uma palavra quanto termos compostos de duas palavras vizinhas (ex: "Idade Média", "Corrente Elétrica"). Isso ajuda a manter a correta sutiliza de significado das expressões.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Camada 3 -->
+                        <div class="pipeline-step">
+                            <h4>Camada 3: Modelo de Decisão &amp; Similaridade</h4>
+                            <p>Execução dos modelos preditivos e métricas geométricas:</p>
+                            <ul>
+                                <li><strong>LinearSVC (Support Vector Machine):</strong> O modelo mapeia o vetor de texto no espaço do TF-IDF e encontra o melhor hiperplano multidimensional linear que separa as 4 classes de dados, classificando a nova entrada.</li>
+                                <li><strong>Similaridade de Cosseno (Busca Semântica):</strong> Mede o cosseno do ângulo \(\theta\) entre o vetor da dúvida do usuário e todas as questões do banco de dados para recuperar as de menor distância espacial.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Métricas -->
+                <div class="glass-card case-section">
+                    <div class="section-badge">Fase 3</div>
+                    <h2>Métricas de Acurácia &amp; Comparação de Modelos</h2>
+                    <p>Durante a fase de desenvolvimento, aplicamos a metodologia de <strong>Validação Cruzada (Cross-Validation)</strong> dividindo o dataset em 5 folds (partições) para evitar sobreajuste (overfitting). Comparamos quatro algoritmos clássicos de Machine Learning:</p>
+
+                    <div class="metrics-container">
+                        <!-- Modelo 1 -->
+                        <div class="metric-row">
+                            <div class="metric-info">
+                                <span class="model-name">LinearSVC (Support Vector Machine)</span>
+                                <span class="accuracy-pct">94.0%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 94%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Modelo 2 -->
+                        <div class="metric-row">
+                            <div class="metric-info">
+                                <span class="model-name">Multinomial Naive Bayes</span>
+                                <span class="accuracy-pct">93.4%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 93.4%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Modelo 3 -->
+                        <div class="metric-row">
+                            <div class="metric-info">
+                                <span class="model-name">Logistic Regression</span>
+                                <span class="accuracy-pct">93.1%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 93.1%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Modelo 4 -->
+                        <div class="metric-row">
+                            <div class="metric-info">
+                                <span class="model-name">Random Forest Classifier (Ensemble)</span>
+                                <span class="accuracy-pct">73.8%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 73.8%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="case-note">
+                        <p>💡 <strong>Conclusão Técnica:</strong> Modelos lineares como SVM e Regressão Logística respondem extremamente bem a dados esparsos de altíssima dimensionalidade característicos da vetorização TF-IDF. O <strong>LinearSVC</strong> obteve o melhor equilíbrio de precisão e recall geral, sendo escolhido como o motor preditivo do backend.</p>
+                </div>
+
+                <!-- Limitações e Discussão de Web Scraping -->
+                <div class="glass-card case-section">
+                    <div class="section-badge">Fase 4</div>
+                    <h2>Discussão de Limitações &amp; Engenharia de Dados</h2>
+                    
+                    <h3>1. Limitações do Modelo na Identificação de Questões (TF-IDF &amp; Cosseno)</h3>
+                    <p>O modelo utiliza a técnica de <strong>TF-IDF</strong> associada à <strong>Similaridade de Cosseno</strong>. Embora seja uma abordagem computacionalmente eficiente e leve, ela possui barreiras semânticas claras:</p>
+                    <ul>
+                        <li><strong>Sensibilidade a Homônimos (Falta de Contexto):</strong> A vetorização TF-IDF desconsidera a estrutura gramatical e o contexto real de uso das palavras. Por exemplo, a dúvida <em>"Qual a relação do feudalismo na Idade Média?"</em> compartilha os termos "Idade Média" (História) com uma questão de matemática que apresente uma tabela sobre a "idade média" (conceito estatístico) de uma população. Devido à alta frequência de termos idênticos, o modelo pode incorretamente atribuir maior similaridade à questão de matemática.</li>
+                        <li><strong>Sensibilidade a Termos Fora do Vocabulário (OOV):</strong> O modelo é incapaz de associar sinônimos que não estejam mapeados em seu vocabulário de treino. Se o usuário pesquisar por "energia atômica", mas o banco do ENEM utilizar estritamente o termo "energia nuclear", a similaridade medida será zero.</li>
+                        <li><strong>Desconsideração da Ordem das Palavras:</strong> A representação em saco de palavras (Bag of Words) ignora a sequência sintática. Frases com significados opostos, como <em>"Não ocorreu a revolução industrial"</em> e <em>"Ocorreu a revolução industrial"</em>, geram vetores extremamente similares, pois apenas o modificador de negação ("não") os diferencia.</li>
+                    </ul>
+
+                    <h3>2. A Solução Híbrida de Recomendação de Conteúdos</h3>
+                    <p>A sugestão de matérias de estudo foi projetada para resolver um trade-off crítico de engenharia: a esparsidade do dicionário de atalhos locais versus a instabilidade de fazer buscas em tempo real na web:</p>
+                    <ul>
+                        <li><strong>Esparsidade de Vetores Curtos:</strong> A base local (<code>materias_estudo.json</code>) possui chaves curtas e específicas (ex: "volume de cilindro", "estequiometria"). Ao vetorizar essas chaves, a representação TF-IDF fica muito esparsa. Se a dúvida do usuário usar sinônimos, a similaridade de cosseno pode ficar abaixo do limiar. Para mitigar isso, expandimos a base local para <strong>mais de 40 temas clássicos do ENEM</strong> e reduzimos o limiar de corte para <code>0.05</code>.</li>
+                        <li><strong>Mecanismo de Busca Direta Interna (Fallback Dinâmico):</strong> Para evitar recomendações rasas (como guias gerais) quando a dúvida trata de um micro-tema não mapeado localmente (ex: "oxirredução"), implementamos um gerador dinâmico de busca. O backend limpa as stopwords da dúvida do usuário e gera um link que aponta diretamente para o buscador interno do portal Brasil Escola: <code>https://brasilescola.uol.com.br/busca?q={query}</code>. Isso garante **profundidade infinita** às recomendações sem risco de bloqueios.</li>
+                    </ul>
+
+                    <h3>3. Engenharia de Dados: Desafios de Produção e Web Scraping</h3>
+                    <p>Durante o desenvolvimento da infraestrutura de dados, dois grandes desafios precisaram ser superados:</p>
+                    <ul>
+                        <li><strong>Instabilidade de Raspagem (Anti-Bot):</strong> Buscas ao vivo via scripts de scraping no Yahoo ou DuckDuckGo retornam frequentemente erros de servidor como <code>500 Internal Error</code> ou bloqueios temporários. O fallback para busca direta no navegador resolve o problema transferindo a execução da consulta para o cliente, garantindo **latência de 0ms** no servidor.</li>
+                        <li><strong>Limpeza de Dados Corrompidos (Encoding):</strong> O dataset original de questões continha caracteres Unicode inválidos (<code>\ufffd</code>), exibidos como ícones ilegíveis na tela. Realizamos a limpeza programática via Pandas (<code>.str.replace('\ufffd', '')</code>). Embora tenha resolvido o problema estético, a perda de alguns acentos originais pode afetar levemente a acurácia de n-grams na vetorização.</li>
+                    </ul>
+
+                    <div class="case-note" style="margin-top: 15px;">
+                        <p>🚀 <strong>Discussão de Melhorias &amp; Evolução:</strong></p>
+                        <p>Para evoluir este recomendador e torná-lo ainda mais profundo, propomos as seguintes melhorias arquiteturais:</p>
+                        <ul>
+                            <li><strong>Extração de Entidades (NER):</strong> Utilizar um modelo leve de Named Entity Recognition (ex: Spacy) no backend para identificar as entidades principais da dúvida (como "Brasil Colônia" ou "equação") e formular termos de pesquisa ainda mais limpos e focados.</li>
+                            <li><strong>Integração via API Oficial de Busca:</strong> Em vez de redirecionar o usuário para a página de busca externa, integrar a **Google Custom Search API** no backend. O servidor faria a consulta na API (que é estável e oficial) e traria os 3 links de artigos mais relevantes renderizados diretamente na interface do Tutor.</li>
+                            <li><strong>Sentence Embeddings (Semântica Avançada):</strong> Substituir o TF-IDF por modelos de representação vetorial semântica baseados em Transformers (como o <strong>BERTimbau</strong>). Isso permitiria calcular a similaridade entre a dúvida e os temas de estudo com base no real significado conceitual das frases, eliminando a dependência do vocabulário exato.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>© 2026 Danilo Cho — Engenharia Metalúrgica (Poli-USP)</p>
+            <p class="footer-sub">Desenvolvido em FastAPI, Scikit-Learn e NLTK como projeto de portfólio de dados.</p>
+        </footer>
+    </div>
+
+    <!-- JS Scripts -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
